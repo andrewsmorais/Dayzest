@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sportify - Perform Beyond Limits</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Shopify Web Components -->
+    <script type="module" src="https://cdn.shopify.com/storefront/web-components.js"></script>
+
+    <style>
+        :root {
+            --bg-color: #111111;
+            --text-color: #ffffff;
+            --primary-color: #ccff00; /* Lime Green */
+            --primary-hover: #b3e600;
+            --secondary-color: #222222;
+            --border-color: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 1. Announcement Bar */
+        .announcement-bar {
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+            text-align: center;
+            padding: 10px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .announcement-bar .promo {
+            flex-grow: 1;
+        }
+
+        /* 2. Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background-color: #ffffff;
+            color: #000000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: var(--primary-color);
+            background: #000;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        nav.main-nav {
+            display: flex;
+            gap: 30px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        nav.main-nav a:hover {
+            color: var(--primary-color);
+        }
+
+        nav.main-nav a.sale {
+            color: #ff3333;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .header-icons svg {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+
+        .header-icons svg:hover {
+            stroke: var(--primary-color);
+        }
+
+        /* 3. Hero Banner */
+        .hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        .new-collection {
+            color: var(--primary-color);
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+
+        .hero h1 span {
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #cccccc;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: #000000;
+        }
+
+        .btn-primary:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            margin-left: 15px;
+        }
+
+        .btn-outline:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .discount-badge {
+            position: absolute;
+            right: 10%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #000;
+            font-weight: 900;
+            font-size: 2rem;
+            line-height: 1;
+            z-index: 2;
+        }
+        
+        .discount-badge span {
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        /* 4. Benefits Bar */
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: #ffffff;
+            color: #000000;
+            padding: 30px 5%;
+            gap: 20px;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .benefit-item svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--primary-color);
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .benefit-item h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+        }
+
+        .benefit-item p {
+            font-size: 0.8rem;
+            color: #666666;
+        }
+
+        /* Section Titles */
+        .section-title {
+            text-align: center;
+            margin: 60px 0 40px;
+            font-size: 2rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-style: italic;
+        }
+        
+        .section-title span {
+            color: var(--primary-color);
+        }
+
+        /* 5. Top Picks */
+        .top-picks {
+            padding: 0 5%;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-card shopify-media {
+            width: 100%;
+            height: 250px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .product-card h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .product-card shopify-money {
+            font-size: 1.25rem;
+            font-weight: 900;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .product-card button {
+            width: 100%;
+            padding: 12px;
+            background-color: #000000;
+            color: #ffffff;
+            border: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .product-card button:hover {
+            background-color: var(--primary-color);
+            color: #000000;
+        }
+
+        /* 6. Promotional Banner */
+        .promo-banner {
+            margin: 60px 5%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.9) 40%, rgba(0,0,0,0) 100%), url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            padding: 60px 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+        }
+
+        .promo-content {
+            max-width: 500px;
+        }
+
+        .promo-content h4 {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .promo-content h2 {
+            font-size: 2.5rem;
+            font-weight: 900;
+            font-style: italic;
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .promo-content h2 span {
+            color: var(--primary-color);
+        }
+
+        .promo-content p {
+            color: #aaaaaa;
+            margin-bottom: 25px;
+        }
+
+        /* 7. Categories */
+        .categories {
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .category-card {
+            position: relative;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 20px;
+            text-align: center;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
+            z-index: 1;
+        }
+
+        .category-card-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .category-card svg {
+            width: 40px;
+            height: 40px;
+            stroke: #ffffff;
+            stroke-width: 1.5;
+            fill: none;
+            margin-bottom: 10px;
+        }
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .category-card span {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        /* 8. Coupon Strip */
+        .coupon-strip {
+            background-color: var(--primary-color);
+            color: #000000;
+            margin: 60px 5%;
+            padding: 30px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .coupon-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .coupon-left svg {
+            width: 50px;
+            height: 50px;
+        }
+
+        .coupon-left h3 {
+            font-size: 1.5rem;
+            font-weight: 900;
+            line-height: 1.2;
+        }
+
+        .coupon-left p {
+            font-weight: 600;
+        }
+
+        .coupon-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .coupon-code {
+            border: 2px dashed #000000;
+            padding: 10px 20px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+
+        .btn-dark {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-dark:hover {
+            background-color: #333333;
+        }
+
+        /* 9. Footer */
+        footer {
+            background-color: #000000;
+            padding: 60px 5% 20px;
+            margin-top: 60px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h4 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #888888;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #888888;
+            border-radius: 50%;
+            color: #888888;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .newsletter-form {
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: none;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .newsletter-form button {
+            background-color: var(--primary-color);
+            color: #000000;
+            border: none;
+            padding: 0 20px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #222222;
+            color: #666666;
+            font-size: 0.8rem;
+        }
+        
+        .footer-bottom a {
+            color: #888888;
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .benefits, .categories, .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 { font-size: 3rem; }
+        }
+
+        @media (max-width: 768px) {
+            nav.main-nav { display: none; }
+            .hero h1 { font-size: 2.5rem; }
+            .discount-badge { display: none; }
+            .coupon-strip { flex-direction: column; gap: 20px; text-align: center; }
+            .coupon-left, .coupon-right { flex-direction: column; }
+        }
+
+        @media (max-width: 480px) {
+            .benefits, .categories, .footer-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Shopify Config -->
+    <shopify-store
+        store-domain="dwjf1z-ed.myshopify.com"
+        public-access-token="10f74d64be3b3cc76c601a4366bc4fc6"
+        country="BR"
+        language="pt"
+    ></shopify-store>
+
+    <!-- 1. Announcement Bar -->
+    <div class="announcement-bar">
+        <div class="shipping">
+            <svg style="width:16px;height:16px;vertical-align:middle;margin-right:5px;" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            FRETE GRÁTIS nas compras acima de R$ 299
+        </div>
+        <div class="promo">🔥 SUMMER PERFORMANCE SALE – ATÉ 40% OFF</div>
+        <div class="view-browser"><a href="#">Ver no Navegador</a></div>
+    </div>
+
+    <!-- 2. Header -->
+    <header>
+        <div class="logo">
+            <span>S</span> SPORTIFY
+        </div>
+        <nav class="main-nav">
+            <a href="#">Homem</a>
+            <a href="#">Mulher</a>
+            <a href="#">Calçados</a>
+            <a href="#">Acessórios</a>
+            <a href="#">Equipamentos</a>
+            <a href="#" class="sale">Promoções</a>
+        </nav>
+        <div class="header-icons">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+            <svg onclick="document.getElementById('main-cart').showModal()" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        </div>
+    </header>
+
+    <!-- 3. Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="new-collection">/// NOVA COLEÇÃO</span>
+            <h1>Perform<br><span>Beyond Limits</span></h1>
+            <p>Equipamentos de alta performance projetados para ultrapassar seus limites e ajudar você a conquistar mais todos os dias. ///</p>
+            <button class="btn btn-primary">Comprar Agora →</button>
+            <button class="btn btn-outline">Ver Promoções</button>
+        </div>
+        <div class="discount-badge">
+            UP TO
+            <span>40% OFF</span>
+        </div>
+    </section>
+
+    <!-- 4. Benefits Bar -->
+    <section class="benefits">
+        <div class="benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <div>
+                <h4>FRETE GRÁTIS</h4>
+                <p>Em pedidos acima de R$ 299</p>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            <div>
+                <h4>PAGAMENTO SEGURO</h4>
+                <p>100% seguro e protegido</p>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+            <div>
+                <h4>DEVOLUÇÃO FÁCIL</h4>
+                <p>Política de devolução de 30 dias</p>
+            </div>
+        </div>
+        <div class="benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            <div>
+                <h4>SUPORTE 24/7</h4>
+                <p>Estamos aqui para ajudar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Top Picks (Shopify dynamic list) -->
+    <h2 class="section-title">/// <span>Top Picks</span> Para Você ///</h2>
+    <section class="top-picks">
+        <shopify-list-context type="product" query="products" first="10">
+            <div class="product-grid">
+                <!-- Usando a estrutura sugerida para iterar os produtos -->
+                <template>
+                    <div class="product-card">
+                        <shopify-media></shopify-media>
+                        <h3><shopify-data query="product.title"></shopify-data></h3>
+                        <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
+                        <button onclick="document.getElementById('main-cart').addLine(event).showModal()">COMPRAR AGORA</button>
+                    </div>
+                </template>
+            </div>
+        </shopify-list-context>
+    </section>
+
+    <!-- 6. Promotional Banner -->
+    <section class="promo-banner">
+        <div class="promo-content">
+            <h4>Construído para campeões</h4>
+            <h2>GAME ON. <br><span>GEAR UP.</span></h2>
+            <p>Equipamentos esportivos premium para cada jogo, cada treino, cada vitória.</p>
+            <button class="btn btn-primary">EXPLORE NOW →</button>
+        </div>
+    </section>
+
+    <!-- 7. Categories Grid -->
+    <h2 class="section-title">/// Navegue por <span>Categoria</span> ///</h2>
+    <section class="categories">
+        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+            <div class="category-card-content">
+                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+                <h3>FORÇA</h3>
+                <span>SHOP NOW</span>
+            </div>
+        </div>
+        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+            <div class="category-card-content">
+                <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <h3>CORRIDA</h3>
+                <span>SHOP NOW</span>
+            </div>
+        </div>
+        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1518605368461-1e1e11af2804?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+            <div class="category-card-content">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                <h3>FUTEBOL</h3>
+                <span>SHOP NOW</span>
+            </div>
+        </div>
+        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+            <div class="category-card-content">
+                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <h3>FITNESS</h3>
+                <span>SHOP NOW</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Coupon Strip -->
+    <section class="coupon-strip">
+        <div class="coupon-left">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+            <div>
+                <h3>GANHE 10% OFF</h3>
+                <p>NA SUA PRIMEIRA COMPRA</p>
+            </div>
+        </div>
+        <div class="coupon-right">
+            <span>Use o código:</span>
+            <div class="coupon-code">SPORT10</div>
+            <button class="btn-dark">PEGAR MEU DESCONTO</button>
+        </div>
+    </section>
+
+    <!-- 9. Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4>Loja</h4>
+                <ul>
+                    <li><a href="#">Homem</a></li>
+                    <li><a href="#">Mulher</a></li>
+                    <li><a href="#">Calçados</a></li>
+                    <li><a href="#">Acessórios</a></li>
+                    <li><a href="#">Equipamentos</a></li>
+                    <li><a href="#">Promoções</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <ul>
+                    <li><a href="#">Rastreie seu Pedido</a></li>
+                    <li><a href="#">Devoluções e Reembolsos</a></li>
+                    <li><a href="#">Política de Envio</a></li>
+                    <li><a href="#">Métodos de Pagamento</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Guia de Tamanhos</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Sobre Nós</h4>
+                <ul>
+                    <li><a href="#">Nossa História</a></li>
+                    <li><a href="#">Carreiras</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Sustentabilidade</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Fique Conectado</h4>
+                <p style="color: #888; font-size: 0.9rem; margin-bottom: 15px;">Siga-nos nas redes sociais</p>
+                <div class="social-icons">
+                    <a href="#"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                    <a href="#"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+                    <a href="#"><svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2v-6h2v6zm-1-6.891c-.607 0-1.1-.496-1.1-1.109 0-.612.492-1.109 1.1-1.109s1.1.497 1.1 1.109c0 .613-.493 1.109-1.1 1.109zm8 6.891h-1.998v-2.861c0-1.881-2.002-1.722-2.002 0v2.861h-2v-6h2v1.093c.872-1.616 4-1.736 4 1.548v3.359z"/></svg></a>
+                </div>
+                <p style="color: #888; font-size: 0.8rem; margin-bottom: 10px;">Assine para receber atualizações, ofertas exclusivas & mais.</p>
+                <div class="newsletter-form">
+                    <input type="email" placeholder="Seu email">
+                    <button>→</button>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Sportify. Todos os direitos reservados.</p>
+            <p>Você está recebendo este e-mail porque se inscreveu em nossa newsletter. <a href="#">Cancelar inscrição</a></p>
+        </div>
+    </footer>
+
+    <!-- Shopify Cart Components -->
+    <shopify-cart id="main-cart"></shopify-cart>
+
+    <script>
+        // Custom script behavior if needed, standard Shopify Web Components 
+        // handle most cart logic automatically with addLine(event).
+    </script>
+</body>
+</html>
