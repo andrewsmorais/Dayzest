@@ -813,8 +813,7 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a class="product-card">
-                                <div style="display: none;"><shopify-data query="product.handle" class="hidden-handle"></shopify-data></div>
+                            <a query="product.url" href="#" class="product-card">
                                 <div class="product-card__media">
                                     <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
                                 </div>
@@ -961,20 +960,23 @@
 
 
     <script>
-        // Custom script behavior se necessário.
-        setInterval(() => {
-            document.querySelectorAll('.product-card').forEach(card => {
-                const dataEl = card.querySelector('shopify-data.hidden-handle');
-                if (dataEl && dataEl.shadowRoot) {
-                    const handle = dataEl.shadowRoot.textContent.trim();
-                    if (handle && card.getAttribute('href') !== 'product.html?handle=' + handle) {
-                        card.setAttribute('href', 'product.html?handle=' + handle);
-                        // Make sure it doesn't have an inline onclick blocking it
-                        card.onclick = null;
-                    }
+        // Interceptador de cliques mestre (Captura o evento ANTES da biblioteca da Shopify)
+        document.addEventListener('click', function(e) {
+            // Verifica se o clique foi em um link ou dentro de um link
+            const link = e.composedPath().find(el => el.tagName === 'A');
+            if (link && link.href && link.href.includes('/products/')) {
+                // Bloqueia qualquer outro comportamento (como o roteador interno da Shopify)
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                
+                // Extrai o handle da URL gerada nativamente
+                const handle = link.href.split('/products/')[1].split('?')[0].replace(/\/$/, '');
+                if(handle) {
+                    window.location.href = 'product.html?handle=' + handle;
                 }
-            });
-        }, 500);
+            }
+        }, true); // O 'true' ativa a fase de captura (capture phase)
     </script>
 </body>
 </html>
