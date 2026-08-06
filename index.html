@@ -460,25 +460,17 @@
             text-transform: uppercase;
         }
 
-        /* 8. Coupon Strip */
-        .coupon-strip {
-            background-color: var(--primary-color);
-            color: #000000;
-            margin: 0;
-            padding: 30px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+
 
         /* Bottom Benefits Bar */
         .bottom-benefits {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            background-color: #111111;
-            color: #ffffff;
+            background-color: #ffffff;
+            color: #000000;
             padding: 30px 5%;
             gap: 20px;
+            border-bottom: 1px solid #eeeeee;
         }
 
         .bottom-benefit-item {
@@ -490,7 +482,7 @@
         .bottom-benefit-item svg {
             width: 40px;
             height: 40px;
-            stroke: #ffffff;
+            stroke: #000000;
             stroke-width: 1.5;
             fill: none;
             flex-shrink: 0;
@@ -499,7 +491,7 @@
         .bottom-benefit-item h4 {
             font-size: 0.85rem;
             font-weight: 700;
-            color: #ffffff;
+            color: #000000;
         }
 
         .bottom-benefit-item p {
@@ -507,40 +499,9 @@
             color: #999999;
         }
 
-        .coupon-left {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
 
-        .coupon-left svg {
-            width: 50px;
-            height: 50px;
-        }
 
-        .coupon-left h3 {
-            font-size: 1.5rem;
-            font-weight: 900;
-            line-height: 1.2;
-        }
 
-        .coupon-left p {
-            font-weight: 600;
-        }
-
-        .coupon-right {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .coupon-code {
-            border: 2px dashed #000000;
-            padding: 10px 20px;
-            font-weight: 900;
-            font-size: 1.2rem;
-            letter-spacing: 2px;
-        }
 
         .btn-dark {
             background-color: #000000;
@@ -840,21 +801,6 @@
         </div>
     </section>
 
-    <!-- 8. Coupon Strip -->
-    <section class="coupon-strip">
-        <div class="coupon-left">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
-            <div>
-                <h3>GANHE 10% OFF</h3>
-                <p>NA SUA PRIMEIRA COMPRA</p>
-            </div>
-        </div>
-        <div class="coupon-right">
-            <span>Use o código:</span>
-            <div class="coupon-code">SPORT10</div>
-            <button class="btn-dark">PEGAR MEU DESCONTO</button>
-        </div>
-    </section>
 
     <!-- Bottom Benefits / Trust Bar -->
     <section class="bottom-benefits">
