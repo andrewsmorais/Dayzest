@@ -818,10 +818,29 @@
           margin: 0 auto;
         }
         
+        .custom-image-grid {
+          display: grid !important;
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 15px !important;
+          width: 100% !important;
+          margin-bottom: 30px !important;
+        }
+        
+        .custom-image-grid img {
+          width: 100% !important;
+          height: auto !important;
+          object-fit: cover !important;
+          border-radius: 4px !important;
+          display: block !important;
+        }
+
         /* Responsividade para Celular */
         @media (max-width: 768px) {
           .product-page-container {
             flex-direction: column;
+          }
+          .custom-image-grid {
+            grid-template-columns: 1fr !important;
           }
         }
     </style>
@@ -998,73 +1017,53 @@
         });
         observer.observe(document.body, { childList: true, subtree: true });
 
-        // Formatador da Descrição Longa (Transforma imagens em Grid 2x2)
-        const formatDescImages = () => {
-            const descContainer = document.querySelector('.product-long-description shopify-data');
-            if (descContainer) {
-                // Suporta tanto Shadow DOM (padrão) quanto Light DOM (se renderizar direto)
-                const root = descContainer.shadowRoot || descContainer;
-                const imgs = root.querySelectorAll('img');
+        // Script definitivo para Forçar Grade de Imagens da Descrição
+        document.addEventListener("DOMContentLoaded", () => {
+            // Aguarda o Web Component da Shopify renderizar o HTML
+            setTimeout(() => {
+                const descContainer = document.querySelector('.product-long-description');
+                if (!descContainer) return;
+
+                // Extrai todas as imagens, incluindo as que estão dentro do shadowRoot se o web component usar
+                let images = [];
+                const shopifyData = descContainer.querySelector('shopify-data');
                 
-                // Só executa se houver imagens e se ainda não tivermos formatado (evita loops)
-                if (imgs.length > 0 && !root.querySelector('.image-grid')) {
-                    
-                    // Injeta CSS para responsividade (Mobile = 1 coluna)
-                    if (!root.querySelector('#grid-responsive-style')) {
-                        const style = document.createElement('style');
-                        style.id = 'grid-responsive-style';
-                        style.textContent = `
-                            @media (max-width: 768px) {
-                                .image-grid { grid-template-columns: 1fr !important; }
-                            }
-                        `;
-                        root.appendChild(style);
-                    }
+                if (shopifyData && shopifyData.shadowRoot) {
+                    images = Array.from(shopifyData.shadowRoot.querySelectorAll('img'));
+                } else {
+                    images = Array.from(descContainer.querySelectorAll('img'));
+                }
+                
+                if (images.length === 0) return;
 
-                    // Agrupa imagens adjacentes em Grids 2x2
-                    let grid = null;
-                    const elements = Array.from(root.children);
-                    
-                    elements.forEach(el => {
-                        if (el.tagName === 'STYLE') return;
+                // Cria a nova grade de imagens
+                const grid = document.createElement('div');
+                grid.className = 'custom-image-grid';
 
-                        // Verifica se o elemento atual é uma imagem ou um parágrafo que contém uma imagem
-                        const img = el.tagName === 'IMG' ? el : el.querySelector('img');
-                        
-                        if (img) {
-                            if (!grid) {
-                                grid = document.createElement('div');
-                                grid.className = 'image-grid';
-                                // Estilização inline do Grid para garantir prioridade
-                                grid.style.display = 'grid';
-                                grid.style.gridTemplateColumns = '1fr 1fr';
-                                grid.style.gap = '20px';
-                                grid.style.margin = '30px 0';
-                                el.parentNode.insertBefore(grid, el);
-                            }
-                            
-                            // Estilização das imagens (Width 100%, sem distorção)
-                            img.style.width = '100%';
-                            img.style.height = 'auto';
-                            img.style.objectFit = 'cover';
-                            img.style.borderRadius = '8px';
-                            grid.appendChild(img);
-                            
-                            // Remove o parágrafo original (se era um wrapper)
-                            if (el.tagName === 'P') el.remove(); 
-                        } else if (el.tagName === 'DIV' && el.classList.contains('image-grid')) {
-                            // Ignora o grid gerado
-                        } else if (el.textContent.trim() !== '') {
-                            // Se encontrar texto no meio, quebra o grid para não misturar texto com grid de fotos
-                            grid = null;
-                        }
+                // Move as imagens para a grade e limpa larguras fixas
+                images.forEach(img => {
+                    img.removeAttribute('style');
+                    img.removeAttribute('width');
+                    img.removeAttribute('height');
+                    grid.appendChild(img);
+                });
+
+                // Insere a grade no topo da descrição (dentro do shadowRoot se aplicável)
+                if (shopifyData && shopifyData.shadowRoot) {
+                    shopifyData.shadowRoot.prepend(grid);
+                    // Limpa os parágrafos vazios que sobraram
+                    shopifyData.shadowRoot.querySelectorAll('p').forEach(p => {
+                        if(p.innerHTML.trim() === '') p.remove();
+                    });
+                } else {
+                    descContainer.prepend(grid);
+                    // Limpa os parágrafos vazios que sobraram
+                    descContainer.querySelectorAll('p').forEach(p => {
+                        if(p.innerHTML.trim() === '') p.remove();
                     });
                 }
-            }
-        };
-
-        // Roda o formatador periodicamente para capturar quando a Shopify carrega os dados no Shadow DOM
-        setInterval(formatDescImages, 500);
+            }, 2000); // 2 segundos de margem de segurança
+        });
     </script>
 
 
