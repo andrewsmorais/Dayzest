@@ -813,7 +813,8 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a query="product.url" href="#" class="product-card">
+                            <a class="product-card" onclick="const handle = this.querySelector('.product-handle').innerText; window.location.href = 'product.html?handle=' + handle;">
+                                <span class="product-handle" style="display: none;"><shopify-data query="product.handle"></shopify-data></span>
                                 <div class="product-card__media">
                                     <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
                                 </div>
