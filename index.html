@@ -813,8 +813,14 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a class="product-card" onclick="const handle = this.querySelector('.product-handle').innerText; window.location.href = 'product.html?handle=' + handle;">
-                                <span class="product-handle" style="display: none;"><shopify-data query="product.handle"></shopify-data></span>
+                            <a query="product.url" href="#" class="product-card" onclick="
+                                event.preventDefault();
+                                const url = this.getAttribute('href');
+                                if(url && url.includes('/products/')) {
+                                    const handle = url.split('/products/')[1].split('?')[0];
+                                    window.location.href = 'product.html?handle=' + handle;
+                                }
+                            ">
                                 <div class="product-card__media">
                                     <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
                                 </div>
