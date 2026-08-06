@@ -655,6 +655,24 @@
             text-decoration: underline;
         }
 
+        .payment-icons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .payment-icons img {
+            height: 26px;
+            width: auto;
+            border-radius: 4px;
+            background-color: #ffffff; /* Add white background for contrast */
+            padding: 2px 4px; /* Slight padding to make it look like a card */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            object-fit: contain;
+        }
+
         /* Responsive Design */
         @media (max-width: 1024px) {
             .benefits, .categories, .footer-grid, .bottom-benefits {
@@ -921,16 +939,16 @@
         </div>
         
         <div class="footer-bottom">
-            <div style="display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap;">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/american_express-226449634de9fda08a4fbf66861f13840e695d7092c40c8834dbdb1894d0c9f1.svg" alt="American Express" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/apple_pay-f6db0077dc7c325b436ecbdcf254239100b35b70b1663bc7523d7c424901fa09.svg" alt="Apple Pay" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/diners_club-16436b9fb6dd9060edb51f1c7c44e23941e544ad798282d6aef1604319562fba.svg" alt="Diners Club" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/discover-102bc0f29630acbd2aef4a5c5eeacfb7ec60920a6e7df6b0ecb79166f3693e54.svg" alt="Discover" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/google_pay-c66a29c63facf2053bf6935298a0050e687b3337eb1ee6bfbf84dfc29e7da104.svg" alt="Google Pay" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/jcb-3051493b8d4e9aef8d910f5451950d89cf18635a8bc58b2dc1e73715c0e7379d.svg" alt="JCB" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg" alt="Mastercard" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/paypal-49e4c1e03244b6d2de0d270ca0d22dd15da6e92cc7266e93eb43762df5aa355d.svg" alt="PayPal" height="24">
-                <img src="https://cdn.shopify.com/s/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca1ce3c770c.svg" alt="Visa" height="24">
+            <div class="payment-icons">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/american_express-226449634de9fda08a4fbf66861f13840e695d7092c40c8834dbdb1894d0c9f1.svg" alt="American Express">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/apple_pay-f6db0077dc7c325b436ecbdcf254239100b35b70b1663bc7523d7c424901fa09.svg" alt="Apple Pay">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/diners_club-16436b9fb6dd9060edb51f1c7c44e23941e544ad798282d6aef1604319562fba.svg" alt="Diners Club">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/discover-102bc0f29630acbd2aef4a5c5eeacfb7ec60920a6e7df6b0ecb79166f3693e54.svg" alt="Discover">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/google_pay-c66a29c63facf2053bf6935298a0050e687b3337eb1ee6bfbf84dfc29e7da104.svg" alt="Google Pay">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/jcb-3051493b8d4e9aef8d910f5451950d89cf18635a8bc58b2dc1e73715c0e7379d.svg" alt="JCB">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/master-173035bc8124581983d4efa50cf8626e8553c2b311353fbf67485f9c1a2b88d1.svg" alt="Mastercard">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/paypal-49e4c1e03244b6d2de0d270ca0d22dd15da6e92cc7266e93eb43762df5aa355d.svg" alt="PayPal">
+                <img src="https://cdn.shopify.com/s/assets/payment_icons/visa-319d545c6fd255c9aad5eeaad21fd6f7f7b4fdbdb1a35ce83b89cca1ce3c770c.svg" alt="Visa">
             </div>
             <p>&copy; 2026 Dayzest. All rights reserved.</p>
         </div>
