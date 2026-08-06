@@ -760,12 +760,50 @@
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          margin-top: 25px;
           transition: background 0.3s ease;
         }
         .add-to-cart-btn:hover {
           background-color: #ccff00;
           color: #000;
+        }
+        .buy-it-now-btn {
+          background-color: #1a73e8;
+          color: #fff;
+          font-size: 16px;
+          font-weight: 700;
+          padding: 16px;
+          width: 100%;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background 0.3s ease;
+        }
+        .buy-it-now-btn:hover {
+          background-color: #1557b0;
+        }
+        .trust-icon-bar {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 10px;
+          margin-top: 25px;
+          border-top: 1px solid #eee;
+          padding-top: 20px;
+        }
+        .trust-icon {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          font-size: 11px;
+          color: #555;
+          font-weight: 600;
+          line-height: 1.3;
+        }
+        .trust-icon svg {
+          width: 24px;
+          height: 24px;
+          margin-bottom: 8px;
+          color: #111;
         }
         .product-long-description {
           max-width: 1000px;
@@ -888,12 +926,33 @@
                         In stock, ready to ship
                     </div>
 
-                    <button class="add-to-cart-btn" onclick="document.getElementById('main-cart').addLine(event).showModal();">
-                        ADD TO CART
-                    </button>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 25px;">
+                        <button class="add-to-cart-btn" onclick="document.getElementById('main-cart').addLine(event).showModal();">
+                            ADD TO CART
+                        </button>
+                        <button class="buy-it-now-btn" onclick="document.getElementById('main-cart').addLine(event); setTimeout(() => { window.location.href='/checkout'; }, 500);">
+                            BUY IT NOW
+                        </button>
+                    </div>
                     
-                    <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
-                        🔒 Secure and encrypted checkout
+                    <!-- Trust Icon Bar -->
+                    <div class="trust-icon-bar">
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" style="display:none;"/><path d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"></path></svg>
+                            <span>Free Shipping<br>in Canada</span>
+                        </div>
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                            <span>30-Day<br>Guarantee</span>
+                        </div>
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            <span>Secure<br>Checkout</span>
+                        </div>
+                        <div class="trust-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <span>24/7<br>Support</span>
+                        </div>
                     </div>
 
                     <!-- Accordions -->
@@ -938,6 +997,63 @@
             });
         });
         observer.observe(document.body, { childList: true, subtree: true });
+
+        // Formatador da Descrição Longa (Transforma imagens em Grid 2x2)
+        const formatDescImages = () => {
+            const descContainer = document.querySelector('.product-long-description shopify-data');
+            if (descContainer && descContainer.shadowRoot) {
+                const root = descContainer.shadowRoot;
+                const imgs = root.querySelectorAll('img');
+                if (imgs.length > 0 && !root.querySelector('#grid-style')) {
+                    // Adiciona o CSS do Grid no Shadow DOM
+                    const style = document.createElement('style');
+                    style.id = 'grid-style';
+                    style.textContent = `
+                        .image-grid {
+                            display: grid;
+                            grid-template-columns: 1fr 1fr;
+                            gap: 15px;
+                            margin: 20px 0;
+                        }
+                        @media (max-width: 768px) {
+                            .image-grid { grid-template-columns: 1fr; }
+                        }
+                        .image-grid img {
+                            width: 100% !important;
+                            height: auto !important;
+                            border-radius: 8px;
+                            object-fit: cover;
+                        }
+                    `;
+                    root.appendChild(style);
+                    
+                    // Agrupa imagens em Grids
+                    let grid = null;
+                    const elements = Array.from(root.children);
+                    elements.forEach(el => {
+                        // Se o elemento é um parágrafo contendo uma imagem ou se é a própria imagem
+                        if ((el.tagName === 'P' && el.querySelector('img')) || el.tagName === 'IMG') {
+                            const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+                            if (!grid) {
+                                grid = document.createElement('div');
+                                grid.className = 'image-grid';
+                                el.parentNode.insertBefore(grid, el);
+                            }
+                            grid.appendChild(img);
+                            if (el.tagName === 'P') el.remove(); // Remove o parágrafo vazio
+                        } else if (el.tagName === 'DIV' && el.classList.contains('image-grid')) {
+                            // Ignora o grid que acabamos de criar
+                        } else if (el.tagName !== 'STYLE' && el.textContent.trim() !== '') {
+                            // Se encontrar texto ou outros elementos importantes, quebra o grid
+                            grid = null; 
+                        }
+                    });
+                }
+            }
+        };
+
+        // Roda o formatador periodicamente para capturar quando a Shopify carrega os dados no Shadow DOM
+        setInterval(formatDescImages, 500);
     </script>
 
 
