@@ -1003,19 +1003,36 @@
             document.getElementById('pdp-context').setAttribute('handle', handle);
         }
 
-        // Filtro Anti-Dropshipping
-        const observer = new MutationObserver((mutations) => {
-            const elements = document.querySelectorAll('shopify-variant-selector select, shopify-variant-selector label, shopify-variant-selector .option-name');
-            elements.forEach(el => {
-                const text = (el.textContent || el.name || '').toLowerCase();
-                if (text.includes('ships from') || text.includes('origin') || text.includes('envio de') || text.includes('local de envio')) {
-                    // Oculta o elemento pai que contém a opção inteira (wrapper/div)
-                    const wrapper = el.closest('div') || el.parentElement;
-                    if(wrapper) wrapper.style.display = 'none';
-                }
-            });
-        });
-        observer.observe(document.body, { childList: true, subtree: true });
+        // Filtro Anti-Dropshipping Definitivo (Shadow DOM)
+        setInterval(() => {
+            const selector = document.querySelector('shopify-variant-selector');
+            if (selector) {
+                // Acessa o shadowRoot se existir, senão pega do próprio elemento
+                const root = selector.shadowRoot || selector;
+                const elements = root.querySelectorAll('label, .option-name, select');
+                
+                elements.forEach(el => {
+                    const text = (el.textContent || el.name || el.id || '').toLowerCase();
+                    if (text.includes('ships from') || 
+                        text.includes('origin') || 
+                        text.includes('envio de') || 
+                        text.includes('local de envio') || 
+                        text.includes('navios de') || 
+                        text.includes('shipping from') || 
+                        text.includes('china')) {
+                        
+                        // Oculta o contêiner (div pai) que segura o label e o select
+                        const wrapper = el.closest('div') || el.parentElement;
+                        if (wrapper) {
+                            wrapper.style.display = 'none';
+                            wrapper.style.opacity = '0';
+                            wrapper.style.height = '0';
+                            wrapper.style.overflow = 'hidden';
+                        }
+                    }
+                });
+            }
+        }, 500);
 
         // Script definitivo para Forçar Grade de Imagens da Descrição
         document.addEventListener("DOMContentLoaded", () => {
