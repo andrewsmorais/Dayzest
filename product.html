@@ -730,99 +730,60 @@
           gap: 50px;
           padding: 0 20px;
           background-color: #ffffff;
+          font-family: 'Inter', sans-serif;
         }
-
-        /* Esquerda: Galeria */
         .product-gallery {
-          display: flex;
           flex: 1;
-          gap: 20px;
-        }
-        .product-thumbnails {
           display: flex;
           flex-direction: column;
-          gap: 10px;
-          width: 80px;
+          gap: 15px;
         }
-        .product-thumbnails shopify-media,
-        .product-thumbnails img {
-          width: 100%;
-          border: 1px solid #ddd;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .product-main-image {
-          flex: 1;
-        }
-        .product-main-image shopify-media,
-        .product-main-image img {
-          width: 100%;
-          object-fit: contain;
-        }
-
-        /* Direita: Info */
         .product-info {
           flex: 1;
           display: flex;
           flex-direction: column;
-          font-family: 'Inter', sans-serif;
         }
         .product-info h1 {
-          font-size: 24px;
-          font-weight: 700;
+          font-size: 26px;
+          font-weight: 800;
           text-transform: uppercase;
           margin-bottom: 10px;
-        }
-        .product-price {
-          font-size: 22px;
-          font-weight: 700;
-          margin: 15px 0;
-        }
-        .product-price s {
-          font-size: 16px;
-          color: #777;
-          font-weight: 400;
-          margin-right: 10px;
+          color: #111;
         }
         .add-to-cart-btn {
           background-color: #000;
           color: #fff;
           font-size: 16px;
           font-weight: 700;
-          padding: 15px;
+          padding: 16px;
           width: 100%;
           border: none;
           border-radius: 4px;
           cursor: pointer;
-          margin-top: 20px;
-          transition: background 0.3s;
+          margin-top: 25px;
+          transition: background 0.3s ease;
         }
         .add-to-cart-btn:hover {
           background-color: #ccff00;
           color: #000;
         }
         .product-long-description {
-          max-width: 1200px;
+          max-width: 1000px;
           margin: 60px auto;
           padding: 0 20px;
+          overflow-x: hidden;
         }
         .product-long-description img {
-          max-width: 100%;
-          height: auto;
+          max-width: 100% !important;
+          height: auto !important;
+          display: block;
+          margin: 0 auto;
         }
-
-        /* Responsividade Mobile */
+        
+        /* Responsividade para Celular */
         @media (max-width: 768px) {
           .product-page-container {
             flex-direction: column;
-          }
-          .product-gallery {
-            flex-direction: column-reverse;
-          }
-          .product-thumbnails {
-            flex-direction: row;
-            width: 100%;
-            overflow-x: auto;
           }
         }
     </style>
@@ -896,14 +857,7 @@
             <main class="product-page-container">
                 <!-- Esquerda: Galeria -->
                 <div class="product-gallery">
-                    <div class="product-thumbnails">
-                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
-                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
-                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
-                    </div>
-                    <div class="product-main-image">
-                        <shopify-media width="600" height="600" query="product.featuredImage"></shopify-media>
-                    </div>
+                    <shopify-media width="600" height="600" query="product.selectedOrFirstAvailableVariant.image"></shopify-media>
                 </div>
 
                 <!-- Direita: Info -->
@@ -970,6 +924,20 @@
         if(handle) {
             document.getElementById('pdp-context').setAttribute('handle', handle);
         }
+
+        // Filtro Anti-Dropshipping
+        const observer = new MutationObserver((mutations) => {
+            const elements = document.querySelectorAll('shopify-variant-selector select, shopify-variant-selector label, shopify-variant-selector .option-name');
+            elements.forEach(el => {
+                const text = (el.textContent || el.name || '').toLowerCase();
+                if (text.includes('ships from') || text.includes('origin') || text.includes('envio de') || text.includes('local de envio')) {
+                    // Oculta o elemento pai que contém a opção inteira (wrapper/div)
+                    const wrapper = el.closest('div') || el.parentElement;
+                    if(wrapper) wrapper.style.display = 'none';
+                }
+            });
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
     </script>
 
 
