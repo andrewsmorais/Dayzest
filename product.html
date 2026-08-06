@@ -723,89 +723,107 @@
             .benefits, .categories, .footer-grid, .bottom-benefits, .product-grid { grid-template-columns: 1fr; }
         }
         /* PDP Styles */
-        .product-page {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            min-height: 60vh;
+        .product-page-container {
+          max-width: 1200px;
+          margin: 40px auto;
+          display: flex;
+          gap: 50px;
+          padding: 0 20px;
+          background-color: #ffffff;
         }
 
-        .pdp-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        /* Esquerda: Galeria */
+        .product-gallery {
+          display: flex;
+          flex: 1;
+          gap: 20px;
+        }
+        .product-thumbnails {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          width: 80px;
+        }
+        .product-thumbnails shopify-media,
+        .product-thumbnails img {
+          width: 100%;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .product-main-image {
+          flex: 1;
+        }
+        .product-main-image shopify-media,
+        .product-main-image img {
+          width: 100%;
+          object-fit: contain;
         }
 
-        .pdp-media {
-            flex: 1 1 500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        /* Direita: Info */
+        .product-info {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          font-family: 'Inter', sans-serif;
+        }
+        .product-info h1 {
+          font-size: 24px;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin-bottom: 10px;
+        }
+        .product-price {
+          font-size: 22px;
+          font-weight: 700;
+          margin: 15px 0;
+        }
+        .product-price s {
+          font-size: 16px;
+          color: #777;
+          font-weight: 400;
+          margin-right: 10px;
+        }
+        .add-to-cart-btn {
+          background-color: #000;
+          color: #fff;
+          font-size: 16px;
+          font-weight: 700;
+          padding: 15px;
+          width: 100%;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          margin-top: 20px;
+          transition: background 0.3s;
+        }
+        .add-to-cart-btn:hover {
+          background-color: #ccff00;
+          color: #000;
+        }
+        .product-long-description {
+          max-width: 1200px;
+          margin: 60px auto;
+          padding: 0 20px;
+        }
+        .product-long-description img {
+          max-width: 100%;
+          height: auto;
         }
 
-        .pdp-media shopify-media {
-            width: 100%;
-            height: auto;
-            max-width: 600px;
-            mix-blend-mode: multiply;
-        }
-
-        .pdp-details {
-            flex: 1 1 400px;
-            display: flex;
+        /* Responsividade Mobile */
+        @media (max-width: 768px) {
+          .product-page-container {
             flex-direction: column;
-        }
-
-        .pdp-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #111;
-            margin-bottom: 15px;
-            font-family: 'Inter', sans-serif;
-            text-transform: uppercase;
-        }
-
-        .pdp-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #111;
-            margin-bottom: 30px;
-        }
-
-        .pdp-variants {
-            margin-bottom: 30px;
-        }
-        
-        .pdp-variants label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-        }
-
-        .btn-add-cart {
+          }
+          .product-gallery {
+            flex-direction: column-reverse;
+          }
+          .product-thumbnails {
+            flex-direction: row;
             width: 100%;
-            padding: 16px;
-            font-size: 1.1rem;
-            margin-bottom: 40px;
-        }
-
-        .pdp-description {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #444;
-            border-top: 1px solid #eee;
-            padding-top: 30px;
-        }
-        .pdp-description h1, .pdp-description h2, .pdp-description h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-size: 1.2rem;
+            overflow-x: auto;
+          }
         }
     </style>
 </head>
@@ -873,37 +891,77 @@
         </div>
     </header>
 
-    <main class="product-page">
-        <shopify-context id="pdp-context" type="product">
-            <template>
-                <div class="pdp-container">
-                    <div class="pdp-media">
+    <shopify-context id="pdp-context" type="product">
+        <template>
+            <main class="product-page-container">
+                <!-- Esquerda: Galeria -->
+                <div class="product-gallery">
+                    <div class="product-thumbnails">
+                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
+                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
+                        <shopify-media width="80" height="80" query="product.featuredImage"></shopify-media>
+                    </div>
+                    <div class="product-main-image">
                         <shopify-media width="600" height="600" query="product.featuredImage"></shopify-media>
                     </div>
-                    <div class="pdp-details">
-                        <h1 class="pdp-title"><shopify-data query="product.title"></shopify-data></h1>
-                        <div class="pdp-price">
-                            <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
-                        </div>
-                        
-                        <div class="pdp-variants">
-                            <shopify-variant-selector></shopify-variant-selector>
-                        </div>
+                </div>
 
-                        <div class="pdp-actions">
-                            <button class="btn btn-primary btn-add-cart" onclick="document.getElementById('main-cart').addLine(event).showModal();">
-                                ADICIONAR AO CARRINHO
-                            </button>
-                        </div>
+                <!-- Direita: Info -->
+                <div class="product-info">
+                    <h1><shopify-data query="product.title"></shopify-data></h1>
+                    
+                    <div style="color: #FFD700; font-size: 18px; margin-bottom: 10px;">
+                        ★★★★★ <span style="color: #666; font-size: 14px; font-weight: normal; margin-left: 5px;">(4.9/5 Reviews)</span>
+                    </div>
 
-                        <div class="pdp-description">
-                            <shopify-data query="product.descriptionHtml"></shopify-data>
-                        </div>
+                    <div class="product-price">
+                        <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
+                    </div>
+
+                    <div style="margin: 20px 0;">
+                        <shopify-variant-selector></shopify-variant-selector>
+                    </div>
+
+                    <ul style="list-style: none; padding: 0; margin-bottom: 20px; line-height: 1.8; color: #444; font-size: 14px;">
+                        <li>✓ 110+ sport modes</li>
+                        <li>✓ Military grade durability</li>
+                        <li>✓ 24/7 Health monitoring</li>
+                        <li>✓ 15-day battery life</li>
+                    </ul>
+
+                    <div style="display: flex; align-items: center; gap: 8px; font-weight: 600; color: #111; margin-bottom: 20px; font-size: 14px;">
+                        <span style="display: inline-block; width: 10px; height: 10px; background-color: #00ca00; border-radius: 50%;"></span>
+                        In stock, ready to ship
+                    </div>
+
+                    <button class="add-to-cart-btn" onclick="document.getElementById('main-cart').addLine(event).showModal();">
+                        ADD TO CART
+                    </button>
+                    
+                    <div style="text-align: center; margin-top: 15px; font-size: 12px; color: #666;">
+                        🔒 Secure and encrypted checkout
+                    </div>
+
+                    <!-- Accordions -->
+                    <div style="margin-top: 40px; border-top: 1px solid #ddd; padding-top: 15px;">
+                        <details style="margin-bottom: 15px; cursor: pointer;">
+                            <summary style="font-weight: 700; text-transform: uppercase;">TECH SPECS</summary>
+                            <p style="padding-top: 10px; font-size: 14px; color: #555;">Detailed specifications for this product will be displayed here.</p>
+                        </details>
+                        <details style="border-top: 1px solid #ddd; padding-top: 15px; cursor: pointer;">
+                            <summary style="font-weight: 700; text-transform: uppercase;">SHIPPING & RETURNS</summary>
+                            <p style="padding-top: 10px; font-size: 14px; color: #555;">Fast delivery and 30-day hassle-free returns.</p>
+                        </details>
                     </div>
                 </div>
-            </template>
-        </shopify-context>
-    </main>
+            </main>
+
+            <!-- Descrição Longa -->
+            <div class="product-long-description">
+                <shopify-data query="product.descriptionHtml"></shopify-data>
+            </div>
+        </template>
+    </shopify-context>
 
     <script>
         // Lê o 'handle' do produto pela URL (ex: product.html?handle=gard-pro-ultra)
