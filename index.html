@@ -381,77 +381,53 @@
             display: contents;
         }
 
-        .product-card {
-            background-color: transparent !important;
-            border: none !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            height: 100%;
-        }
-
-        .product-card:hover {
-            transform: translateY(-2px);
-            box-shadow: none !important;
-        }
-
-        .product-card__media {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 12px;
-            background: transparent !important;
-        }
-
-        .product-card__media shopify-media {
-            width: 100%;
-            height: 200px;
-            object-fit: contain;
-        }
-
-        .product-card__media img {
-            max-width: 100%;
-            height: auto;
-            object-fit: contain;
-            border-radius: 0 !important;
-            mix-blend-mode: multiply;
-        }
-
-        .product-card__info {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-        }
-
-        .product-card__title {
-            color: #111111;
-            font-size: 14px;
-            font-weight: 500;
-            margin: 8px 0 4px 0;
-            line-height: 1.4;
-        }
-
-        .product-card__price {
-            color: #111111;
-            font-weight: 600;
-            font-size: 15px;
-            margin-bottom: 12px;
-        }
-
-        .product-card__price shopify-money {
-            display: block;
-        }
-
         .product-card-link {
-            text-decoration: none;
-            color: inherit;
-            display: block;
-            cursor: pointer;
+          text-decoration: none !important;
+          color: inherit !important;
+          display: block !important;
+          cursor: pointer !important;
+        }
+        .product-card {
+          background-color: transparent !important;
+          border: none !important;
+          box-shadow: none !important;
+          padding: 0 !important;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+        .product-card:hover {
+          transform: translateY(-2px);
+        }
+        .product-card__media {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          margin-bottom: 12px;
+          background-color: transparent !important;
+        }
+        .product-card__media img {
+          max-width: 100%;
+          height: auto;
+          object-fit: contain;
+          border-radius: 0 !important;
+        }
+        .product-card__title {
+          font-family: 'Inter', sans-serif !important;
+          color: #111111 !important;
+          font-size: 14px !important;
+          font-weight: 500 !important;
+          margin: 8px 0 4px 0 !important;
+          line-height: 1.4 !important;
+        }
+        .product-card__price {
+          font-family: 'Inter', sans-serif !important;
+          color: #111111 !important;
+          font-weight: 600 !important;
+          font-size: 15px !important;
+          margin-bottom: 12px !important;
         }
 
         /* 6. Promotional Banner */
@@ -831,7 +807,8 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a query="product.handle" href="https://dayzest.com/products/${product.handle}" class="product-card-link">
+                            <a class="product-card-link" onclick="const handle = this.querySelector('.product-handle').innerText; window.location.href = 'https://dayzest.com/products/' + handle;">
+                                <span class="product-handle" style="display: none;"><shopify-data query="product.handle"></shopify-data></span>
                                 <div class="product-card">
                                     <div class="product-card__media">
                                         <shopify-media width="280" height="280" query="product.selectedOrFirstAvailableVariant.image"></shopify-media>
