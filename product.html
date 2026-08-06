@@ -722,6 +722,91 @@
         @media (max-width: 480px) {
             .benefits, .categories, .footer-grid, .bottom-benefits, .product-grid { grid-template-columns: 1fr; }
         }
+        /* PDP Styles */
+        .product-page {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 60vh;
+        }
+
+        .pdp-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .pdp-media {
+            flex: 1 1 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .pdp-media shopify-media {
+            width: 100%;
+            height: auto;
+            max-width: 600px;
+            mix-blend-mode: multiply;
+        }
+
+        .pdp-details {
+            flex: 1 1 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pdp-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #111;
+            margin-bottom: 15px;
+            font-family: 'Inter', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .pdp-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 30px;
+        }
+
+        .pdp-variants {
+            margin-bottom: 30px;
+        }
+        
+        .pdp-variants label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .pdp-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+        .pdp-description h1, .pdp-description h2, .pdp-description h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -788,99 +873,46 @@
         </div>
     </header>
 
-    <!-- 3. Hero Banner -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="new-collection">/// NOVA COLEÇÃO</span>
-            <h1>Perform<br><span>Beyond Limits</span></h1>
-            <p>Equipamentos de alta performance projetados para ultrapassar seus limites e ajudar você a conquistar mais todos os dias. ///</p>
-            <button class="btn btn-primary">Comprar Agora →</button>
-            <button class="btn btn-outline">Ver Promoções</button>
-        </div>
-        <div class="discount-badge">
-            UP TO
-            <span>40% OFF</span>
-        </div>
-    </section>
+    <main class="product-page">
+        <shopify-context id="pdp-context" type="product">
+            <template>
+                <div class="pdp-container">
+                    <div class="pdp-media">
+                        <shopify-media width="600" height="600" query="product.featuredImage"></shopify-media>
+                    </div>
+                    <div class="pdp-details">
+                        <h1 class="pdp-title"><shopify-data query="product.title"></shopify-data></h1>
+                        <div class="pdp-price">
+                            <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
+                        </div>
+                        
+                        <div class="pdp-variants">
+                            <shopify-variant-selector></shopify-variant-selector>
+                        </div>
 
+                        <div class="pdp-actions">
+                            <button class="btn btn-primary btn-add-cart" onclick="document.getElementById('main-cart').addLine(event).showModal();">
+                                ADICIONAR AO CARRINHO
+                            </button>
+                        </div>
 
+                        <div class="pdp-description">
+                            <shopify-data query="product.descriptionHtml"></shopify-data>
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </shopify-context>
+    </main>
 
-    <!-- 5. Top Picks (Shopify Best Sellers) -->
-    <h2 class="section-title">/// <span>Top Picks</span> Para Você ///</h2>
-    <section class="top-picks">
-        <div class="product-grid">
-            <shopify-context type="collection" handle="best-sellers">
-                <template>
-                    <shopify-list-context type="product" query="collection.products" first="12">
-                        <template>
-                            <a query="product.url" href="#" class="product-card">
-                                <div class="product-card__media">
-                                    <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
-                                </div>
-                                <div class="product-card__info">
-                                    <h3 class="product-card__title">
-                                        <shopify-data query="product.title"></shopify-data>
-                                    </h3>
-                                    <div class="product-card__price">
-                                        <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
-                                    </div>
-                                </div>
-                            </a>
-                        </template>
-                    </shopify-list-context>
-                </template>
-            </shopify-context>
-        </div>
-    </section>
-
-    <!-- 6. Promotional Banner -->
-    <section class="promo-banner">
-        <div class="promo-content">
-            <h4>BUILT FOR CHAMPIONS</h4>
-            <h2>GAME ON. <br><span>GEAR UP.</span></h2>
-            <p>Premium sports gear for every game, every practice, every victory.</p>
-            <div style="display: flex; gap: 30px; align-items: center; margin-bottom: 25px;">
-                <span style="font-weight: 900; font-size: 1.3rem; font-style: italic; color: #fff;">Nike</span>
-                <span style="font-weight: 900; font-size: 1.3rem; color: #fff;">adidas</span>
-                <span style="font-weight: 900; font-size: 1.3rem; font-style: italic; color: #fff;">puma</span>
-                <span style="font-weight: 700; font-size: 0.9rem; color: #fff; letter-spacing: 1px;">UNDER ARMOUR</span>
-            </div>
-            <button class="btn btn-primary">EXPLORE NOW →</button>
-        </div>
-    </section>
-
-    <!-- 7. Categories Grid -->
-    <h2 class="section-title">/// Navegue por <span>Categoria</span> ///</h2>
-    <section class="categories">
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
-                <h3>FORÇA</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                <h3>CORRIDA</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1518605368461-1e1e11af2804?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <h3>FUTEBOL</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3>FITNESS</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-    </section>
+    <script>
+        // Lê o 'handle' do produto pela URL (ex: product.html?handle=gard-pro-ultra)
+        const urlParams = new URLSearchParams(window.location.search);
+        const handle = urlParams.get('handle');
+        if(handle) {
+            document.getElementById('pdp-context').setAttribute('handle', handle);
+        }
+    </script>
 
 
 
@@ -960,18 +992,8 @@
 
 
     <script>
-        // Interceptar cliques em links de produtos para carregar o arquivo product.html localmente
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (link && link.getAttribute('href') && link.getAttribute('href').includes('/products/')) {
-                e.preventDefault();
-                const parts = link.getAttribute('href').split('/products/');
-                if(parts.length > 1) {
-                    const handle = parts[1].split('?')[0];
-                    window.location.href = 'product.html?handle=' + handle;
-                }
-            }
-        });
+        // Custom script behavior if needed, standard Shopify Web Components 
+        // handle most cart logic automatically with addLine(event).
     </script>
 </body>
 </html>
