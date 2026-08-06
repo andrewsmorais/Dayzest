@@ -1001,51 +1001,62 @@
         // Formatador da Descrição Longa (Transforma imagens em Grid 2x2)
         const formatDescImages = () => {
             const descContainer = document.querySelector('.product-long-description shopify-data');
-            if (descContainer && descContainer.shadowRoot) {
-                const root = descContainer.shadowRoot;
+            if (descContainer) {
+                // Suporta tanto Shadow DOM (padrão) quanto Light DOM (se renderizar direto)
+                const root = descContainer.shadowRoot || descContainer;
                 const imgs = root.querySelectorAll('img');
-                if (imgs.length > 0 && !root.querySelector('#grid-style')) {
-                    // Adiciona o CSS do Grid no Shadow DOM
-                    const style = document.createElement('style');
-                    style.id = 'grid-style';
-                    style.textContent = `
-                        .image-grid {
-                            display: grid;
-                            grid-template-columns: 1fr 1fr;
-                            gap: 15px;
-                            margin: 20px 0;
-                        }
-                        @media (max-width: 768px) {
-                            .image-grid { grid-template-columns: 1fr; }
-                        }
-                        .image-grid img {
-                            width: 100% !important;
-                            height: auto !important;
-                            border-radius: 8px;
-                            object-fit: cover;
-                        }
-                    `;
-                    root.appendChild(style);
+                
+                // Só executa se houver imagens e se ainda não tivermos formatado (evita loops)
+                if (imgs.length > 0 && !root.querySelector('.image-grid')) {
                     
-                    // Agrupa imagens em Grids
+                    // Injeta CSS para responsividade (Mobile = 1 coluna)
+                    if (!root.querySelector('#grid-responsive-style')) {
+                        const style = document.createElement('style');
+                        style.id = 'grid-responsive-style';
+                        style.textContent = `
+                            @media (max-width: 768px) {
+                                .image-grid { grid-template-columns: 1fr !important; }
+                            }
+                        `;
+                        root.appendChild(style);
+                    }
+
+                    // Agrupa imagens adjacentes em Grids 2x2
                     let grid = null;
                     const elements = Array.from(root.children);
+                    
                     elements.forEach(el => {
-                        // Se o elemento é um parágrafo contendo uma imagem ou se é a própria imagem
-                        if ((el.tagName === 'P' && el.querySelector('img')) || el.tagName === 'IMG') {
-                            const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+                        if (el.tagName === 'STYLE') return;
+
+                        // Verifica se o elemento atual é uma imagem ou um parágrafo que contém uma imagem
+                        const img = el.tagName === 'IMG' ? el : el.querySelector('img');
+                        
+                        if (img) {
                             if (!grid) {
                                 grid = document.createElement('div');
                                 grid.className = 'image-grid';
+                                // Estilização inline do Grid para garantir prioridade
+                                grid.style.display = 'grid';
+                                grid.style.gridTemplateColumns = '1fr 1fr';
+                                grid.style.gap = '20px';
+                                grid.style.margin = '30px 0';
                                 el.parentNode.insertBefore(grid, el);
                             }
+                            
+                            // Estilização das imagens (Width 100%, sem distorção)
+                            img.style.width = '100%';
+                            img.style.height = 'auto';
+                            img.style.objectFit = 'cover';
+                            img.style.borderRadius = '8px';
                             grid.appendChild(img);
-                            if (el.tagName === 'P') el.remove(); // Remove o parágrafo vazio
+                            
+                            // Remove o parágrafo original (se era um wrapper)
+                            if (el.tagName === 'P') el.remove(); 
                         } else if (el.tagName === 'DIV' && el.classList.contains('image-grid')) {
-                            // Ignora o grid que acabamos de criar
-                        } else if (el.tagName !== 'STYLE' && el.textContent.trim() !== '') {
-                            // Se encontrar texto ou outros elementos importantes, quebra o grid
-                            grid = null; 
+                            // Ignora o grid gerado
+                        } else if (el.textContent.trim() !== '') {
+                            // Se encontrar texto no meio, quebra o grid para não misturar texto com grid de fotos
+                            grid = null;
                         }
                     });
                 }
