@@ -15,12 +15,12 @@
 
     <style>
         :root {
-            --bg-color: #111111;
-            --text-color: #ffffff;
+            --bg-color: #ffffff;
+            --text-color: #000000;
             --primary-color: #ccff00; /* Lime Green */
             --primary-hover: #b3e600;
-            --secondary-color: #222222;
-            --border-color: #333333;
+            --secondary-color: #f5f5f5;
+            --border-color: #eeeeee;
         }
 
         * {
@@ -31,8 +31,8 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #ffffff;
+            color: #000000;
             line-height: 1.5;
         }
 
@@ -43,7 +43,7 @@
 
         /* 1. Announcement Bar */
         .announcement-bar {
-            background-color: var(--bg-color);
+            background-color: #111111;
             color: var(--primary-color);
             text-align: center;
             padding: 10px 20px;
@@ -53,7 +53,15 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid #333333;
+        }
+
+        .announcement-bar .shipping {
+            color: var(--primary-color);
+        }
+
+        .announcement-bar .view-browser a {
+            color: #ffffff;
         }
         
         .announcement-bar .promo {
@@ -66,11 +74,12 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 5%;
-            background-color: #ffffff;
-            color: #000000;
+            background-color: #111111;
+            color: #ffffff;
             position: sticky;
             top: 0;
             z-index: 1000;
+            border-bottom: 1px solid #333333;
         }
 
         .logo {
@@ -79,13 +88,22 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            color: #ffffff;
         }
         
         .logo span {
             color: var(--primary-color);
-            background: #000;
+            background: #222;
             padding: 2px 8px;
             border-radius: 4px;
+        }
+
+        header .header-icons svg {
+            stroke: #ffffff;
+        }
+
+        header nav.main-nav a {
+            color: #ffffff;
         }
 
         nav.main-nav {
@@ -97,7 +115,7 @@
         }
 
         nav.main-nav a:hover {
-            color: var(--primary-color);
+            color: var(--primary-color) !important;
         }
 
         nav.main-nav a.sale {
@@ -229,6 +247,7 @@
             color: #000000;
             padding: 30px 5%;
             gap: 20px;
+            border-top: 1px solid #eeeeee;
             border-bottom: 1px solid #eeeeee;
         }
 
@@ -241,7 +260,7 @@
         .benefit-item svg {
             width: 40px;
             height: 40px;
-            stroke: var(--primary-color);
+            stroke: #000000;
             stroke-width: 1.5;
             fill: none;
         }
@@ -249,6 +268,7 @@
         .benefit-item h4 {
             font-size: 0.9rem;
             font-weight: 700;
+            color: #000000;
         }
 
         .benefit-item p {
@@ -264,6 +284,7 @@
             font-weight: 900;
             text-transform: uppercase;
             font-style: italic;
+            color: #000000;
         }
         
         .section-title span {
@@ -272,7 +293,8 @@
 
         /* 5. Top Picks */
         .top-picks {
-            padding: 0 5%;
+            padding: 0 5% 60px;
+            background-color: #ffffff;
         }
 
         .product-grid {
@@ -382,10 +404,11 @@
 
         /* 7. Categories */
         .categories {
-            padding: 0 5%;
+            padding: 0 5% 60px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
+            background-color: #ffffff;
         }
 
         .category-card {
@@ -442,12 +465,47 @@
         .coupon-strip {
             background-color: var(--primary-color);
             color: #000000;
-            margin: 60px 5%;
-            padding: 30px;
-            border-radius: 8px;
+            margin: 0;
+            padding: 30px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
+        }
+
+        /* Bottom Benefits Bar */
+        .bottom-benefits {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background-color: #111111;
+            color: #ffffff;
+            padding: 30px 5%;
+            gap: 20px;
+        }
+
+        .bottom-benefit-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .bottom-benefit-item svg {
+            width: 40px;
+            height: 40px;
+            stroke: #ffffff;
+            stroke-width: 1.5;
+            fill: none;
+            flex-shrink: 0;
+        }
+
+        .bottom-benefit-item h4 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .bottom-benefit-item p {
+            font-size: 0.75rem;
+            color: #999999;
         }
 
         .coupon-left {
@@ -502,9 +560,10 @@
         /* 9. Footer */
         footer {
             background-color: #000000;
+            color: #ffffff;
             padding: 60px 5% 20px;
-            margin-top: 60px;
-            border-top: 1px solid var(--border-color);
+            margin-top: 0;
+            border-top: 1px solid #333333;
         }
 
         .footer-grid {
@@ -599,7 +658,7 @@
 
         /* Responsive Design */
         @media (max-width: 1024px) {
-            .benefits, .categories, .footer-grid {
+            .benefits, .categories, .footer-grid, .bottom-benefits {
                 grid-template-columns: repeat(2, 1fr);
             }
             .hero h1 { font-size: 3rem; }
@@ -614,7 +673,7 @@
         }
 
         @media (max-width: 480px) {
-            .benefits, .categories, .footer-grid { grid-template-columns: 1fr; }
+            .benefits, .categories, .footer-grid, .bottom-benefits { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -723,9 +782,15 @@
     <!-- 6. Promotional Banner -->
     <section class="promo-banner">
         <div class="promo-content">
-            <h4>Construído para campeões</h4>
+            <h4>BUILT FOR CHAMPIONS</h4>
             <h2>GAME ON. <br><span>GEAR UP.</span></h2>
-            <p>Equipamentos esportivos premium para cada jogo, cada treino, cada vitória.</p>
+            <p>Premium sports gear for every game, every practice, every victory.</p>
+            <div style="display: flex; gap: 30px; align-items: center; margin-bottom: 25px;">
+                <span style="font-weight: 900; font-size: 1.3rem; font-style: italic; color: #fff;">Nike</span>
+                <span style="font-weight: 900; font-size: 1.3rem; color: #fff;">adidas</span>
+                <span style="font-weight: 900; font-size: 1.3rem; font-style: italic; color: #fff;">puma</span>
+                <span style="font-weight: 700; font-size: 0.9rem; color: #fff; letter-spacing: 1px;">UNDER ARMOUR</span>
+            </div>
             <button class="btn btn-primary">EXPLORE NOW →</button>
         </div>
     </section>
@@ -776,6 +841,38 @@
             <span>Use o código:</span>
             <div class="coupon-code">SPORT10</div>
             <button class="btn-dark">PEGAR MEU DESCONTO</button>
+        </div>
+    </section>
+
+    <!-- Bottom Benefits / Trust Bar -->
+    <section class="bottom-benefits">
+        <div class="bottom-benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            <div>
+                <h4>100% AUTHENTIC</h4>
+                <p>Genuine Products</p>
+            </div>
+        </div>
+        <div class="bottom-benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+            <div>
+                <h4>PREMIUM QUALITY</h4>
+                <p>Built to Perform</p>
+            </div>
+        </div>
+        <div class="bottom-benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <div>
+                <h4>WORLDWIDE SHIPPING</h4>
+                <p>Fast & Reliable</p>
+            </div>
+        </div>
+        <div class="bottom-benefit-item">
+            <svg viewBox="0 0 24 24"><path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+            <div>
+                <h4>TRUSTED BY ATHLETES</h4>
+                <p>Join Thousands of Winners</p>
+            </div>
         </div>
     </section>
 
