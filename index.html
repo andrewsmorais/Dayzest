@@ -414,6 +414,7 @@
             height: auto;
             object-fit: contain;
             border-radius: 0 !important;
+            mix-blend-mode: multiply;
         }
 
         .product-card__info {
@@ -870,7 +871,7 @@
                         <template>
                             <div class="product-card">
                                 <div class="product-card__media">
-                                    <shopify-media width="280" height="280" query="product.selectedOrFirstAvailableVariant.image"></shopify-media>
+                                    <shopify-media width="280" height="280" query="product.featuredImage"></shopify-media>
                                 </div>
                                 <div class="product-card__info">
                                     <h3 class="product-card__title">
