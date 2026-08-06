@@ -813,7 +813,7 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a query="product.url" href="#" class="product-card">
+                            <div class="product-card" style="cursor: pointer;">
                                 <div class="product-card__media">
                                     <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
                                 </div>
@@ -825,7 +825,7 @@
                                         <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         </template>
                     </shopify-list-context>
                 </template>
@@ -960,23 +960,31 @@
 
 
     <script>
-        // Interceptador de cliques mestre (Captura o evento ANTES da biblioteca da Shopify)
-        document.addEventListener('click', function(e) {
-            // Verifica se o clique foi em um link ou dentro de um link
-            const link = e.composedPath().find(el => el.tagName === 'A');
-            if (link && link.href && link.href.includes('/products/')) {
-                // Bloqueia qualquer outro comportamento (como o roteador interno da Shopify)
-                e.preventDefault();
-                e.stopPropagation();
-                e.stopImmediatePropagation();
-                
-                // Extrai o handle da URL gerada nativamente
-                const handle = link.href.split('/products/')[1].split('?')[0].replace(/\/$/, '');
-                if(handle) {
-                    window.location.href = 'product.html?handle=' + handle;
+        // Roteador Customizado Dayzest
+        setInterval(() => {
+            document.querySelectorAll('.product-card').forEach(card => {
+                // Se já configuramos o clique, ignora
+                if (card.dataset.routed) return;
+
+                // Tenta pegar o título que já foi renderizado na tela
+                const titleData = card.querySelector('.product-card__title shopify-data');
+                if (titleData && titleData.shadowRoot) {
+                    const title = titleData.shadowRoot.textContent.trim();
+                    if (title) {
+                        // Converte o título em handle (ex: "GARD PRO ULTRA" -> "gard-pro-ultra")
+                        const handle = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+                        
+                        // Associa o clique ao card
+                        card.onclick = () => {
+                            window.location.href = 'product.html?handle=' + handle;
+                        };
+                        
+                        // Marca como configurado
+                        card.dataset.routed = 'true';
+                    }
                 }
-            }
-        }, true); // O 'true' ativa a fase de captura (capture phase)
+            });
+        }, 500);
     </script>
 </body>
 </html>
