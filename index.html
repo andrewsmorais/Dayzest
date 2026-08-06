@@ -142,21 +142,23 @@
 
         /* Dropdown Menu */
         .dropdown-menu {
-            display: none;
+            display: none !important;
             position: absolute;
             top: 100%;
             left: 0;
             background-color: #111111;
-            min-width: 220px;
+            min-width: 200px;
             box-shadow: 0 8px 16px rgba(0,0,0,0.5);
             padding: 10px 0;
             border-radius: 4px;
             z-index: 1001;
             border: 1px solid #222222;
+            list-style: none;
         }
 
         .dropdown-menu li {
             width: 100%;
+            display: block;
         }
 
         .dropdown-menu a {
@@ -166,16 +168,18 @@
             text-decoration: none;
             font-size: 13px;
             font-weight: 500;
+            white-space: nowrap;
             transition: background 0.2s, color 0.2s;
         }
 
         .dropdown-menu a:hover {
             background-color: #222222;
-            color: var(--primary-color);
+            color: #ccff00;
         }
 
-        .dropdown:hover .dropdown-menu {
-            display: block;
+        /* Exibir APENAS quando passar o mouse por cima do li.dropdown */
+        .dropdown:hover > .dropdown-menu {
+            display: block !important;
         }
 
         .header-icons {
@@ -861,24 +865,26 @@
     <section class="top-picks">
         <div class="product-grid">
             <shopify-context type="collection" handle="best-sellers">
-                <shopify-list-context type="product" query="collection.products" first="12">
-                    <template>
-                        <div class="product-card">
-                            <div class="product-card__media">
-                                <shopify-media width="280" height="280" query="product.selectedOrFirstAvailableVariant.image"></shopify-media>
-                            </div>
-                            <div class="product-card__info">
-                                <h3 class="product-card__title">
-                                    <shopify-data query="product.title"></shopify-data>
-                                </h3>
-                                <div class="product-card__price">
-                                    <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
+                <template>
+                    <shopify-list-context type="product" query="collection.products" first="12">
+                        <template>
+                            <div class="product-card">
+                                <div class="product-card__media">
+                                    <shopify-media width="280" height="280" query="product.selectedOrFirstAvailableVariant.image"></shopify-media>
                                 </div>
-                                <button class="product-card__btn" onclick="document.getElementById('main-cart').addLine(event).showModal()">COMPRAR AGORA</button>
+                                <div class="product-card__info">
+                                    <h3 class="product-card__title">
+                                        <shopify-data query="product.title"></shopify-data>
+                                    </h3>
+                                    <div class="product-card__price">
+                                        <shopify-money query="product.selectedOrFirstAvailableVariant.price"></shopify-money>
+                                    </div>
+                                    <button class="product-card__btn" onclick="document.getElementById('main-cart').addLine(event).showModal()">COMPRAR AGORA</button>
+                                </div>
                             </div>
-                        </div>
-                    </template>
-                </shopify-list-context>
+                        </template>
+                    </shopify-list-context>
+                </template>
             </shopify-context>
         </div>
     </section>
