@@ -813,14 +813,17 @@
                 <template>
                     <shopify-list-context type="product" query="collection.products" first="12">
                         <template>
-                            <a query="product.url" href="#" class="product-card" onclick="
+                            <a href="#" class="product-card" onclick="
                                 event.preventDefault();
-                                const url = this.getAttribute('href');
-                                if(url && url.includes('/products/')) {
-                                    const handle = url.split('/products/')[1].split('?')[0];
-                                    window.location.href = 'product.html?handle=' + handle;
+                                const dataEl = this.querySelector('shopify-data[query=\'product.handle\']');
+                                if (dataEl && dataEl.shadowRoot) {
+                                    const handle = dataEl.shadowRoot.textContent.trim();
+                                    if(handle) {
+                                        window.location.href = 'product.html?handle=' + handle;
+                                    }
                                 }
                             ">
+                                <div style="display: none;"><shopify-data query="product.handle"></shopify-data></div>
                                 <div class="product-card__media">
                                     <shopify-media width="300" height="300" query="product.featuredImage"></shopify-media>
                                 </div>
@@ -967,18 +970,7 @@
 
 
     <script>
-        // Interceptar cliques em links de produtos para carregar o arquivo product.html localmente
-        document.addEventListener('click', function(e) {
-            const link = e.target.closest('a');
-            if (link && link.getAttribute('href') && link.getAttribute('href').includes('/products/')) {
-                e.preventDefault();
-                const parts = link.getAttribute('href').split('/products/');
-                if(parts.length > 1) {
-                    const handle = parts[1].split('?')[0];
-                    window.location.href = 'product.html?handle=' + handle;
-                }
-            }
-        });
+        // Custom script behavior se necessário.
     </script>
 </body>
 </html>
