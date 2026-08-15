@@ -213,12 +213,13 @@
         /* 3. Hero Banner */
         .hero {
             position: relative;
-            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%), url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            background: url('assets/banner-desktop.png') center/cover no-repeat;
             height: 80vh;
             display: flex;
             align-items: center;
             padding: 0 5%;
             overflow: hidden;
+            cursor: pointer;
         }
 
         .hero-content {
@@ -789,17 +790,9 @@
     </header>
 
     <!-- 3. Hero Banner -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="new-collection">/// NOVA COLE&Ccedil;&Atilde;O</span>
-            <h1>Perform<br><span>Beyond Limits</span></h1>
-            <p>Equipamentos de alta performance projetados para ultrapassar seus limites e ajudar você a conquistar mais todos os dias. ///</p>
-            <button class="btn btn-primary">Comprar Agora &#8594;</button>
-            <button class="btn btn-outline">Ver Promo&ccedil;&otilde;es</button>
-        </div>
-        <div class="discount-badge">
-            UP TO
-            <span>40% OFF</span>
+    <section class="hero" onclick="window.location.href='collection.html?handle=smartwatches'">
+        <div class="hero-content" style="display: none;">
+            <!-- O texto foi removido pois já está embutido na imagem do banner -->
         </div>
     </section>
 
