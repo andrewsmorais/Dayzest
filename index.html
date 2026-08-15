@@ -213,20 +213,20 @@
         /* 3. Hero Banner */
         .hero {
             position: relative;
-            background: url('assets/banner-desktop.png') center/cover no-repeat;
             width: 100%;
-            /* Força a proporção 16:9 usando aspect-ratio para não cortar a imagem */
-            aspect-ratio: 16 / 9;
-            /* Limita a altura máxima para não ficar gigante em telas ultrawide */
-            max-height: 85vh;
-            background-size: contain; /* Garante que a imagem inteira apareça sem cortes */
-            background-position: center;
-            background-color: #000; /* Fundo preto para as bordas se a tela for mais larga que 16:9 */
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 0;
             overflow: hidden;
             cursor: pointer;
+            background-color: #000;
+        }
+
+        .hero img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
 
         .hero-content {
@@ -798,9 +798,7 @@
 
     <!-- 3. Hero Banner -->
     <section class="hero" onclick="window.location.href='collection.html?handle=smartwatches'">
-        <div class="hero-content" style="display: none;">
-            <!-- O texto foi removido pois já está embutido na imagem do banner -->
-        </div>
+        <img src="assets/banner-desktop.png" alt="Built to Endure Vibe 8 Series">
     </section>
 
 
