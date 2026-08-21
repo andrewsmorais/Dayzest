@@ -482,62 +482,43 @@
         .categories {
             padding: 0 5% 60px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             background-color: #ffffff;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .category-card {
-            position: relative;
-            height: 300px;
-            border-radius: 8px;
-            overflow: hidden;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            padding: 20px;
-            text-align: center;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .category-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2));
-            z-index: 1;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease;
         }
 
-        .category-card-content {
-            position: relative;
-            z-index: 2;
+        .category-card:hover {
+            transform: translateY(-3px);
         }
 
-        .category-card svg {
-            width: 40px;
-            height: 40px;
-            stroke: #ffffff;
-            stroke-width: 1.5;
-            fill: none;
-            margin-bottom: 10px;
+        .category-card-img {
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background-color: #f5f5f5;
         }
 
-        .category-card h3 {
-            font-size: 1.5rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 5px;
+        .category-card-text {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #111111;
+            text-align: left;
+            margin: 0;
+            padding: 0;
+            letter-spacing: -0.2px;
         }
-
-        .category-card span {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-        }
-
-
 
         /* Bottom Benefits Bar */
         .bottom-benefits {
@@ -853,36 +834,19 @@
     </section>
 
     <!-- 7. Categories Grid -->
-    <h2 class="section-title">/// Navegue por <span>Categoria</span> ///</h2>
     <section class="categories">
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
-                <h3>FOR&Ccedil;A</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                <h3>CORRIDA</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1518605368461-1e1e11af2804?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
-                <h3>FUTEBOL</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
-        <div class="category-card" style="background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
-            <div class="category-card-content">
-                <svg viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <h3>FITNESS</h3>
-                <span>SHOP NOW</span>
-            </div>
-        </div>
+        <a href="collection.html?handle=training-accessories" class="category-card">
+            <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Training Accessories" class="category-card-img">
+            <h3 class="category-card-text">Training Accessories</h3>
+        </a>
+        <a href="collection.html?handle=training-accessories" class="category-card">
+            <img src="https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Training Accessories" class="category-card-img">
+            <h3 class="category-card-text">Training Accessories</h3>
+        </a>
+        <a href="collection.html?handle=performance-eyewear" class="category-card">
+            <img src="https://images.unsplash.com/photo-1551855734-71bcba2bb214?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="PERFORMANCE EYEWEAR" class="category-card-img">
+            <h3 class="category-card-text">PERFORMANCE EYEWEAR</h3>
+        </a>
     </section>
 
 
