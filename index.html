@@ -63,7 +63,7 @@
         /* FULL BANNER */
         .banner-full { position: relative; width: 100%; overflow: hidden; margin-bottom: 12px; }
         .banner-full:last-child { margin-bottom: 0; }
-        .banner-full img { width: 100%; height: auto; display: block; }
+        .banner-full img { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; display: block; }
 
         /* OVERLAY */
         .banner-overlay { position: absolute; bottom: 40px; left: 40px; z-index: 2; max-width: 500px; }
@@ -168,6 +168,7 @@
             .banner-mosaic .mosaic-side img { aspect-ratio: 4/3; }
             .banner-overlay h2 { font-size: 1.6rem; }
             .banner-overlay { bottom: 24px; left: 24px; }
+            .banner-full img { aspect-ratio: 4 / 5; }
             .brand-strip .brand-logo { font-size: 2rem; }
             .categories { grid-template-columns: 1fr; gap: 32px; }
             .footer-grid { grid-template-columns: 1fr; }
@@ -298,28 +299,6 @@
             </div>
         </div>
     </div>
-
-    <!-- COLLAB STRIP -->
-    <div class="collab-strip">
-        <span style="font-size: 2.5rem;"><span style="background:#111;color:#fff;padding:2px 10px;border-radius:4px;font-size:1.5rem;vertical-align:middle;margin-right:6px;">DZ</span> DayZest</span>
-        <span class="collab-x">&#215;</span>
-        <span>VIBE 8</span>
-    </div>
-
-    <!-- FULL BANNER #4 -->
-    <div class="nike-section">
-        <div class="banner-full">
-            <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" alt="Studio">
-            <div class="banner-overlay banner-overlay--light">
-                <p class="subtitle">New Arrivals</p>
-                <h2>STUDIO<br>COLLECTION</h2>
-                <p class="desc">Explore the latest in performance fashion.</p>
-                <a href="collection.html?handle=all" class="btn-nike btn-nike--white">Shop</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="section-spacer section-spacer--lg"></div>
 
     <!-- TRENDING PRODUCTS -->
     <div class="nike-section">
