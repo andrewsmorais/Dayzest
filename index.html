@@ -112,10 +112,10 @@
         .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
 
         /* CATEGORIES */
-        .category-header { display: flex; align-items: center; padding: 48px 0 24px; background-color: #ffffff; }
-        .category-header img { height: 40px; margin-right: 16px; border-radius: 4px; }
-        .category-header h2 { font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; color: #111111; margin: 0; line-height: 1; }
-        .categories { padding: 0 0 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background-color: #ffffff; }
+        .category-header { display: flex; align-items: center; justify-content: center; padding: 120px 0 80px; background-color: #ffffff; }
+        .category-header img { height: 32px; margin-right: 16px; border-radius: 4px; }
+        .category-header h2 { font-size: 24px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px; color: #111111; margin: 0; line-height: 1; }
+        .categories { padding: 48px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; background-color: #ffffff; }
         .category-card { display: flex; flex-direction: column; text-decoration: none; cursor: pointer; transition: opacity 0.2s ease; }
         .category-card:hover { opacity: 0.85; }
         .category-card-img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; margin-bottom: 12px; background-color: #f5f5f5; }
@@ -230,10 +230,6 @@
 
     <!-- SHOP BY CATEGORY -->
     <div class="nike-section">
-        <div class="category-header">
-            <img src="assets/category-logo.png" alt="DZ Logo">
-            <h2>TRAINING ACCESSORIES</h2>
-        </div>
         <section class="categories">
             <a href="collection.html?handle=woman" class="category-card">
                 <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Shop Women's" class="category-card-img">
@@ -248,6 +244,11 @@
                 <h3 class="category-card-text">Shop All</h3>
             </a>
         </section>
+        
+        <div class="category-header">
+            <img src="assets/category-logo.png" alt="DZ Logo">
+            <h2>TRAINING ACCESSORIES</h2>
+        </div>
     </div>
 
 
